@@ -4,7 +4,7 @@ import sys
 import csv
 import psycopg2
 
-db = psycopg2.connect('')
+db = psycopg2.connect('host=localhost')
 cursor = db.cursor()
 
 # Race condition: overnight. Would we had redis!
