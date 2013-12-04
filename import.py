@@ -3,8 +3,12 @@
 import sys
 import csv
 import psycopg2
+import os
 
-db = psycopg2.connect('host=localhost')
+db = psycopg2.connect(host=os.environ.get('PLS_HOST', 'localhost'),
+                      user=os.environ.get('PLS_USER', os.environ.get('USER')),
+                      password=os.environ.get('PLS_PASSWORD', ''),
+                      dbname=os.environ.get('PLS_DB', os.environ.get('USER')))
 cursor = db.cursor()
 
 # Race condition: overnight. Would we had redis!
