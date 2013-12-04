@@ -4,6 +4,7 @@ from flask import Flask, request, g
 import psycopg2
 import psycopg2.extras
 import StringIO
+import os
 
 app = Flask(__name__)
 
@@ -46,4 +47,6 @@ def stats():
     return out.getvalue()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host=os.environ.get('PLS_HOST', '127.0.0.1'),
+            port=int(os.environ.get('PLS_PORT', '5000')),
+            debug=bool(os.environ.get('PLS_DEBUG', '')))
