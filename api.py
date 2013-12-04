@@ -12,7 +12,7 @@ app = Flask(__name__)
 def data():
     format = request.args.get('format', 'tsv')
     out = StringIO.StringIO()
-    db = psycopg2.connect('host=localhost')
+    db = psycopg2.connect(dbname='pls')
     cursor = db.cursor()
     cursor.execute('select question_id, student_id, outcome from data')
     for question_id, student_id, outcome in cursor.fetchall():
@@ -25,7 +25,7 @@ def data():
 def stats():
     start_date = request.args.get('start-date', None)
     end_date = request.args.get('end-date', None)
-    db = psycopg2.connect('host=localhost')
+    db = psycopg2.connect(dbname='pls')
     cursor = db.cursor()
     if start_date and end_date:
         cursor.execute('select date, imported from stats where date >= %s and date < %s',
